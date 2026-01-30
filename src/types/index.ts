@@ -124,5 +124,6 @@ export interface Pagination {
 export interface PaginatedResponse<T> {
   transactions?: T[];
   transfers?: T[];
+  totalBalance?: number;
   pagination: Pagination;
 }
