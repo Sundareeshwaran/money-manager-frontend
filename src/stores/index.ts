@@ -54,6 +54,7 @@ interface AccountState {
   fetchAccounts: () => Promise<void>;
   seedAccounts: () => Promise<void>;
   updateAccountBalance: (id: string, balance: number) => void;
+  updateAccount: (id: string, data: Partial<Account>) => Promise<void>;
 }
 
 export const useAccountStore = create<AccountState>((set, get) => ({
@@ -85,6 +86,19 @@ export const useAccountStore = create<AccountState>((set, get) => ({
         acc._id === id ? { ...acc, balance } : acc,
       ),
     });
+  },
+  updateAccount: async (id: string, data: Partial<Account>) => {
+    try {
+      const updatedAccount = await accountApi.update(id, data);
+      set((state) => ({
+        accounts: state.accounts.map((acc) =>
+          acc._id === id ? updatedAccount : acc,
+        ),
+      }));
+    } catch (err) {
+      console.error("Failed to update account:", err);
+      // throw err; // Optionally re-throw for UI handling
+    }
   },
 }));
 

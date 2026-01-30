@@ -1,2 +1,3 @@
-export { AccountCard } from "./AccountCard";
-export { TransferModal } from "./TransferModal";
+export * from "./AccountCard";
+export * from "./TransferModal";
+export * from "./EditAccountDialog";
