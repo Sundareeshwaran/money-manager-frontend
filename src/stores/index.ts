@@ -31,7 +31,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
     try {
       const categories = await categoryApi.getAll();
       set({ categories, loading: false });
-    } catch (err) {
+    } catch {
       set({ error: "Failed to fetch categories", loading: false });
     }
   },
@@ -40,7 +40,7 @@ export const useCategoryStore = create<CategoryState>((set) => ({
       await categoryApi.seed();
       const categories = await categoryApi.getAll();
       set({ categories });
-    } catch (err) {
+    } catch {
       set({ error: "Failed to seed categories" });
     }
   },
@@ -66,7 +66,7 @@ export const useAccountStore = create<AccountState>((set, get) => ({
     try {
       const accounts = await accountApi.getAll();
       set({ accounts, loading: false });
-    } catch (err) {
+    } catch {
       set({ error: "Failed to fetch accounts", loading: false });
     }
   },
@@ -75,7 +75,7 @@ export const useAccountStore = create<AccountState>((set, get) => ({
       await accountApi.seed();
       const accounts = await accountApi.getAll();
       set({ accounts });
-    } catch (err) {
+    } catch {
       set({ error: "Failed to seed accounts" });
     }
   },
@@ -140,7 +140,7 @@ export const useTransactionStore = create<TransactionState>((set, get) => ({
         pagination: response.pagination,
         loading: false,
       });
-    } catch (err) {
+    } catch {
       set({ error: "Failed to fetch transactions", loading: false });
     }
   },
@@ -148,7 +148,7 @@ export const useTransactionStore = create<TransactionState>((set, get) => ({
     try {
       const transactions = await transactionApi.getRecent(limit);
       set({ recentTransactions: transactions });
-    } catch (err) {
+    } catch {
       console.error("Failed to fetch recent transactions");
     }
   },
@@ -209,7 +209,7 @@ export const useDashboardStore = create<DashboardState>((set) => ({
     try {
       const summary = await analyticsApi.getSummary(params);
       set({ summary, loading: false });
-    } catch (err) {
+    } catch {
       set({ error: "Failed to fetch summary", loading: false });
     }
   },

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, createElement } from "react";
 import {
   Wallet,
   Building2,
@@ -53,12 +53,25 @@ const getAccountGradient = (type: string) => {
   }
 };
 
+const AccountIcon = ({
+  type,
+  color,
+  className,
+}: {
+  type: string;
+  color: string;
+  className?: string;
+}) => {
+  return createElement(getAccountIcon(type), {
+    className,
+    style: { color },
+  });
+};
+
 export function AccountCard({ account }: AccountCardProps) {
   const openTransfer = useUIStore((state) => state.openTransfer);
   const [isEditOpen, setIsEditOpen] = useState(false);
 
-  /* eslint-disable-next-line react/no-unstable-nested-components */
-  const Icon = getAccountIcon(account.type);
   const gradient = getAccountGradient(account.type);
 
   return (
@@ -74,7 +87,11 @@ export function AccountCard({ account }: AccountCardProps) {
             className="p-3 rounded-xl"
             style={{ backgroundColor: `${account.color}20` }}
           >
-            <Icon className="h-6 w-6" style={{ color: account.color }} />
+            <AccountIcon
+              type={account.type}
+              color={account.color}
+              className="h-6 w-6"
+            />
           </div>
           <div className="flex gap-1">
             <Button
